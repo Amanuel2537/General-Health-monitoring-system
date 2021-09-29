@@ -7,7 +7,7 @@ if (isset($_POST["submit"])) {
 
     $username = $_POST["txtUsername"];
     $password = $_POST["txtPassword"];
-    
+
 
     $host = "localhost";
     $user = "root";
@@ -18,13 +18,13 @@ if (isset($_POST["submit"])) {
 
     $username = mysqli_real_escape_string($connection_String, $username);
     $password = mysqli_real_escape_string($connection_String, $password);
-//  $users_department= mysqli_real_escape_string($connection_String,  $users_department);
+    //  $users_department= mysqli_real_escape_string($connection_String,  $users_department);
 
     $get_current_user_details = "SELECT * FROM users_table WHERE user_fname = '$username' AND Password = '$password' LIMIT 1";
     $execute_user_details_command = mysqli_query($connection_String, $get_current_user_details);
     $get_additional_info = mysqli_fetch_assoc($execute_user_details_command);
 
-    
+
 
 
     $command_query = "SELECT * FROM users_table WHERE user_fname = '$username' AND Password = '$password' ";
@@ -33,7 +33,7 @@ if (isset($_POST["submit"])) {
 
     $user_validity = mysqli_num_rows($execute_command_query);
 
-    
+
     if ($user_validity > 0) {
 
         $checking_online_status = "SELECT * FROM users_online WHERE first_name='$username' AND last_name = '$users_last_name'";
@@ -44,8 +44,8 @@ if (isset($_POST["submit"])) {
 
         if ($online_status_validity > 0) {
             $users_last_name = $get_additional_info["user_lname"];
-$users_department = $get_additional_info["department"];
-    $users_position = $get_additional_info["position"];
+            $users_department = $get_additional_info["department"];
+            $users_position = $get_additional_info["position"];
             setcookie("user_first_name", $username, time() + (86400 * 30));
             setcookie("users_last_name", $users_last_name, time() + (86400 * 30));
             setcookie("user_department", $users_department, time() + (86400 * 30));
@@ -69,6 +69,9 @@ $users_department = $get_additional_info["department"];
 
             header("Location:./Dashboard/Main_Dashboard.php");
         } else {
+            $users_last_name = $get_additional_info["user_lname"];
+            $users_department = $get_additional_info["department"];
+            $users_position = $get_additional_info["position"];
 
             $insert_command = "INSERT INTO users_online (`ID`, `first_name`,`last_name`, `Time`,`status`) VALUES (NULL, '$username','$users_last_name', CURRENT_TIMESTAMP,'online')";
 

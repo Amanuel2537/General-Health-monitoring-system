@@ -12,7 +12,7 @@ $connect = mysqli_connect($hostname, $username, $password, $databaseName);
 
 // mysql select query
 
-$query = "SELECT * FROM `patient_data";
+$query = "SELECT * FROM patient_data";
 
 
 // result for method one

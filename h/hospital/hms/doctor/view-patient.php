@@ -114,8 +114,8 @@ if (isset($_POST['submit'])) {
                     <tr>
                       <th scope> PatientRoomNumber</th>
                       <td><?php echo $row['PatientRoomNumber']; ?></td>
-                      <th>Patient Address</th>
-                      <td><?php echo $row['PatientAdd']; ?></td>
+                      <th>Patient Mac</th>
+                      <td><?php echo $row['PatientMac']; ?></td>
                     </tr>
                     <tr>
                       <th>Patient Gender</th>

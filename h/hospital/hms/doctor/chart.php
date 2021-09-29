@@ -153,17 +153,42 @@ while ($row = mysqli_fetch_array($result)) {
 <title> patetnt data in bar chart</title>
 <script>
 	Morris.Bar({
-		element: 'chart',
-		data: [<?php echo $chart_patient; ?>],
-		pointFillColors: ['grey', 'red'],
-		pointStrokeColors: ['black', 'blue'],
-		xkey: 'Time_Stamp',
-		ykeys: ['Temperature', 'BPM', 'oxygen_level'],
-		labels: ['Temperature', 'BPM', 'oxygen_level'],
-		// hideHover: 'auto',
-		//  		 stacked: true
-		//           barColors:['##FF0000', '#9b5cd4','##FF0000',],
-	});
+				element: 'chart',
+				data: [<?php echo $chart_patient; ?>],
+				pointFillColors: ['grey', 'red'],
+				pointStrokeColors: ['black', 'blue'],
+				xkey: 'Time_Stamp',
+				ykeys: ['Temperature', 'BPM', 'oxygen_level'],
+				labels: ['Temperature', 'BPM', 'oxygen_level'],
+				// hideHover: 'auto',
+				//  		 stacked: true
+				//           barColors:['##FF0000', '#9b5cd4','##FF0000',],
+				barColors: function(row, series, type) {
+					if (series.key == 'oxygen_level' ) {
+						if (row.y > 90)
+							return "red";
+							else {
+								return ""
+							}
+					}
+				
+	
+					if (series.key == 'Temperature') {
+						if (row.y > 38 )
+							return "red";
+						else{
+							return "green";
+						}
+					}
+				
+					if (series.key == 'BPM') {
+						if (row.y > 90)
+							return "red";
+						else
+							return "orange";
+					
+				}
+		}	});
 </script>
 
 <script>
@@ -175,7 +200,7 @@ while ($row = mysqli_fetch_array($result)) {
 		xkey: 'Time_Stamp',
 		ykeys: ['Temperature', 'BPM', 'oxygen_level'],
 		labels: ['Temperature', 'BPM', 'oxygen_level'],
-	
+
 
 
 		ymin: -100,
